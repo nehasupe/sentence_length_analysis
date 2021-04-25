@@ -1,0 +1,5 @@
+# Function dependencies, for example:
+# package>=version
+nltk>=3.5
+requests>=2.10.0
+matplotlib>=3.3.3
