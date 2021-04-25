@@ -1,0 +1,1 @@
+This directory contains logs from the cloud functions. They show the flow of execution of the code.
