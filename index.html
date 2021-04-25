@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <title>Document</title>
+    </head>
+    <body>
+        <div class="container">
+
+            <section class="mb-6">
+                <h2 class="h1-responsive font-weight-bold text-center my-4">Sentence Histogram</h2>
+                <p class="text-center w-responsive mx-auto mb-5">Enter a url for the text file and get the histogram of lengths of sentences. The histogram is created using NLTK and matplotlib library</p>
+                <div class="row">
+                    <div class="col-md-4 mb-8">
+                        <form id="contact-form" name="contact-form" action="https://us-central1-cc-mapreduce.cloudfunctions.net/convert-sentence" method="POST">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="md-form mb-0">
+                                        <input type="text" id="url" name="url" class="form-control">
+                                        <label for="url" required class="">Your URL</label>
+                                    </div>
+                                </div>
+                            <div class="text-center text-md-left">
+                                <button id="submit" type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                        </form>                     
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <table class="table">
+    <thead>
+      <tr>
+        <th>length</th>
+        <th>title</th>
+        <th>url</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>The Hanging Stranger</td>
+        <td>words: 7608, lines: 750</td>
+        <td>http://www.gutenberg.org/cache/epub/41562/pg41562.txt</td>
+        
+      </tr>
+      <tr>
+        <td>Pride and Prejudice</td>
+        <td>words: 124423, lines: 4741</td>
+        <td>http://www.gutenberg.org/files/1342/1342-0.txt</td>
+      </tr>
+      <tr>
+        <td>Patch</td>
+        <td>words: 5348, lines: 297</td>
+        <td>http://www.gutenberg.org/cache/epub/63934/pg63934.txt</td>  
+      </tr>
+    </tbody>
+  </table>
+
+                    </div>
+                                
+ 
+        </div>
+         <div class="row">
+                <div class="col-md-6 mb-md-0 mb-5">
+                 <div id="created"> </div>
+             </div>
+         </div>
+         </section>  
+        <script type="text/javascript">
+            document.addEventListener('submit', e => {
+            console.time("test1");
+              const form = e.target;
+              const proxyurl = "https://cors-anywhere.herokuapp.com/";
+              const url = form.action;
+              fetch(proxyurl + url, {
+                  method: form.method,
+                  body: new FormData(form)
+                })
+            .then(res => res.text())
+            .then(text => new DOMParser().parseFromString(text, 'text/html'))
+            .then(doc => {
+              console.log("here");
+              console.log(doc.body.innerHTML)
+              console.log("blueee");
+             document.getElementById("created").innerHTML = doc.body.innerHTML;
+            console.log("lolol");
+            console.timeEnd("test1");
+
+            });
+            
+          e.preventDefault();
+
+        });
+        </script>
+
+    </body>
+</html>
